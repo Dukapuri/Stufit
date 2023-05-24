@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Router from "next/router";
 
+
 const moveRoute = () => {
     Router.push("/Nextpage")
 }

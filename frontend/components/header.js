@@ -15,7 +15,6 @@ function Header(params) {
       </ul>
       <style jsx>{`
             .top-header {
-              position : fixed;
                z-index: 999; 
                height:70px;
                width: 100%;

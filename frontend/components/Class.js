@@ -3,7 +3,7 @@ import {useState, useRef, useEffect} from 'react';
 
 function Class(params) {
     
-    const colorList = ["#1abc9c","#3498db","#34495e","#27ae60","#8e44ad","#f1c40f","#e74c3c","#95a5a6","#d35400","#bdc3c7","#2ecc71","#e67e22"]
+    const colorList = ["#000000","#3498db","#34495e","#27ae60","#8e44ad","#f1c40f","#e74c3c","#95a5a6","#d35400","#bdc3c7","#2ecc71","#e67e22"]
     const CANVAS_HEIGHT = 800
     const CANVAS_WIDTH = 800
 
@@ -59,6 +59,11 @@ function Class(params) {
         getCtx.fillRect(0,0,CANVAS_WIDTH,CANVAS_HEIGHT);
     }
 
+    const eraserCanvas = (event) => {
+        getCtx.strokeStyle = "white";
+        setColor("#ffffff");
+        setPainting(false);
+    }
     
     return (
         <div className={styles.body}>
@@ -71,14 +76,19 @@ function Class(params) {
                 onMouseLeave={() => setPainting(false)}
                 >
             </canvas>
-            <input id='line-width' type='range' min="1" max="10" step="0.1" value={getWidth} onChange={handleWidthChange}/>
-            <input type="color" value={getColor}/>
+            <div className={styles.sizeBox}><span>선 두께</span><input id='line-width' type='range' min="1" max="10" step="0.1" value={getWidth} onChange={handleWidthChange}/></div>
+            <div className={styles.sizeBox}><span>현재 색깔</span> <input type="color" value={getColor}/></div>
+            <div className={styles.container}>
                 {colorList.map((color)=>{
                     return(
                         <div className={styles.colorOption} style={{backgroundColor : color}} data-color={color} onClick={handleColorChange}></div>
                     );
                 })}
-            <button id='destroy-btn' onClick={clearCanvas}>Destroy</button> 
+            </div>
+            <div className={styles.sizeBox}>
+            <button id='destroy-btn' className={styles.sizeBox} onClick={clearCanvas}>새 도화지</button> 
+            <button id='eraser-btn' className={styles.sizeBox} onClick={eraserCanvas}>지우개</button>
+            </div>
         </div>
     );
 }
