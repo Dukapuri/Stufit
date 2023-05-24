@@ -2,28 +2,31 @@
 
 function Header(params) {
 
-    return (
-        <header className="top-header">
-            <div className="logo-section">
-                <img className="header-img" src={`/img/logo.png`} alt="logo-image" />
-                <h1 className="header-h3">StuFit</h1>
-            </div>
-            <ul className="header-menu">
-                <li>About</li>
-                <li>MyPage</li>
-                <li>Learn</li>
-                <li>Q&A</li>
-            </ul>
-            <style jsx>{`
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
-
+  return (
+    <header className="top-header">
+      <div className="logo-section">
+        <img className="header-img" src={`/img/logo.png`} alt="logo-image" />
+        <h1 className="header-h3">StuFit</h1>
+      </div>
+      <ul className="header-menu">
+        <li>About</li>
+        <li>MyPage</li>
+        <li>Learn</li>
+        <li>Q&A</li>
+      </ul>
+      <style jsx>{`
             .top-header {
+              position : fixed;
+               z-index: 999; 
+               height:70px;
                width: 100%;
-               padding: 25px;
-               padding-left: 5px;
+               padding: 20px 0 0 40px;
                display: flex;
                justify-content: space-evenly;
+               overflow-x : hidden;
              }
+               position: fixed;
+              }
              
              .header-img {
                width: 50px;
@@ -48,9 +51,8 @@ function Header(params) {
              }
            
              .header-menu li {
-           
                margin-right: 20px;
-               display: block;
+               display: inline-block;
                color: #00ff66;
                text-align: center;
                padding: 14px 16px;
@@ -60,9 +62,9 @@ function Header(params) {
                font-weight: 500;
              }
             `}
-            </style>
-        </header>
-    )
+      </style>
+    </header>
+  )
 }
 
 export default Header;

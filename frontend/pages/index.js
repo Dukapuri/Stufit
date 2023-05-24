@@ -1,11 +1,15 @@
-import  StartButton  from '../components/StartButton'
 import Header from "../components/header";
+import MainOne from '../components/MainOne';
+import MainTwo from '../components/MainTwo';
+import Scroll3 from "../components/Scroll3";
 
 const Index = () => {
   return (
     <>
     <Header />
-    <StartButton/>
+    <MainOne />
+    <MainTwo />
+    <Scroll3/>
     </>
   );
 }
