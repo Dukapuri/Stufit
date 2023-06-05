@@ -1,41 +1,36 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "../components/header2";
 
 const Screen = () => {
   const [penGuideVisible, setPenGuideVisible] = useState(false);
-  const [penGuidePosition, setPenGuidePosition] = useState({ x: 0, y: 0 });
+  const [selectedColor, setSelectedColor] = useState("#000000"); // Initial value is black
 
-  const handleBack = () => {
-    
-  };
+  const handleBack = () => {};
 
-  const handleGo = () => {
+  const handleGo = () => {};
 
-  };
+  const handleRefresh = () => {};
 
-  const handleRefresh = () => {
-
-  };
-
-  const handlePenOption = (event) => {
-    const penSvgRect = event.target.getBoundingClientRect();
+  const handlePenOption = () => {
     if (penGuideVisible) {
       setPenGuideVisible(false);
     } else {
       setPenGuideVisible(true);
-      setPenGuidePosition({
-        x: penSvgRect.x + penSvgRect.width / 2,
-        y: penSvgRect.y - penSvgRect.height,
-      });
     }
   };
 
-  const handlePenSelected = () => {
+  const handlePWidthSelected = () => {
     setPenGuideVisible(false);
   };
 
-  const handleHPenOption = () => {
-
+  const handlePColorSelected = (event) => {
+    let selectedColor;
+    if (event.target.tagName === "INPUT") {
+      selectedColor = event.target.value;
+    } else {
+      selectedColor = event.target.getAttribute("value");
+    }
+    setSelectedColor(selectedColor);
   };
 
   return (
@@ -47,42 +42,107 @@ const Screen = () => {
           style={{ position: "absolute", left: "37%", bottom: "25%" }}
         >
           <ul>
-            <li onClick={handlePenSelected}><img src="/img/penwidth1.png" /></li>
-            <li onClick={handlePenSelected}><img src="/img/penwidth2.png" /></li>
-            <li onClick={handlePenSelected}><img src="/img/penwidth3.png" /></li>
+            <li onClick={handlePWidthSelected}>
+              <img src="/img/penwidth1.png" />
+            </li>
+            <li onClick={handlePWidthSelected}>
+              <img src="/img/penwidth2.png" />
+            </li>
+            <li onClick={handlePWidthSelected}>
+              <img src="/img/penwidth3.png" />
+            </li>
           </ul>
         </div>
       )}
       <div className="ScreenWrapper">
         <div className="toolBox">
           <ul className="workLevel">
-            <li><img src="/img/back.png" onClick={handleBack}/></li>
-            <li><img src="/img/go.png" onClick={handleGo}/></li>
-            <li className="refresh"><img src="/img/cycle.png" onClick={handleRefresh}/></li>
+            <li>
+              <img src="/img/back.png" onClick={handleBack} />
+            </li>
+            <li>
+              <img src="/img/go.png" onClick={handleGo} />
+            </li>
+            <li className="refresh">
+              <img src="/img/cycle.png" onClick={handleRefresh} />
+            </li>
           </ul>
           <ul className="toolItem">
-            <li><img src="/img/pen.svg" onClick={handlePenOption}/></li>
-            <li><img src="/img/highpen.svg" onClick={handleHPenOption}/></li>
-            <li><img src="/img/eraser.svg"/></li>
+            <li>
+              <div className="penOption" onClick={handlePenOption}>
+                <div className="currentCircle" style={{ background: selectedColor }}></div>
+                <img src="/img/pen.svg" style={{ fill: selectedColor }} />
+              </div>
+            </li>
+            <li>
+              <img src="/img/highpen.svg" />
+            </li>
+            <li>
+              <img src="/img/eraser.svg" />
+            </li>
           </ul>
           <div className="ColorContainer">
             <div className="colorRow">
-              <div className="colorCell" id="cblack" value="#000000"></div>
-              <div className="colorCell" id="cred" value="#ff0000"></div>
-              <div className="colorCell" id="cgreen" value="#00ff00"></div>
+              <div
+                className="colorCell"
+                id="cblack"
+                value="rgb(0,0,0)"
+                onClick={handlePColorSelected}
+              ></div>
+              <div
+                className="colorCell"
+                id="cred"
+                value="rgb(255,0,0)"
+                onClick={handlePColorSelected}
+              ></div>
+              <div
+                className="colorCell"
+                id="cgreen"
+                value="rgb(0,255,0)"
+                onClick={handlePColorSelected}
+              ></div>
             </div>
             <div className="colorRow">
-              <div className="colorCell" id="cyellow" value="#00ffff"></div>
-              <div className="colorCell" id="cblue" value="#0000ff"></div>
-              <input type="color" className="colorSelect"/>
+              <div
+                className="colorCell"
+                id="cyellow"
+                value="rgb(255,255,0)"
+                onClick={handlePColorSelected}
+              ></div>
+              <div
+                className="colorCell"
+                id="cblue"
+                value="rgb(0,0,255)"
+                onClick={handlePColorSelected}
+              ></div>
+              <input
+                type="color"
+                className="colorSelect"
+                onChange={(event) =>
+                  handlePColorSelected({ target: event.target })
+                }
+              />
             </div>
           </div>
         </div>
       </div>
       <style jsx>{`
+        .penOption {
+          position : relative;
+        }
+
+        .currentCircle {
+          position : aboslute;
+          top : 0;
+          right : 0;
+          background : #000;
+          width : 15px;
+          height : 15px;
+          border-radius : 50%;
+        }
         .toolBox {
           position: fixed;
-          z-index : 999;
+          z-index: 999;
           bottom: 5%;
           left: 50%;
           transform: translateX(-50%);
@@ -124,7 +184,7 @@ const Screen = () => {
         }
 
         .refresh {
-          margin-left : 40px;
+          margin-left: 40px;
         }
 
         .toolItem {
@@ -132,7 +192,7 @@ const Screen = () => {
           display: flex;
           justify-content: space-evenly;
         }
-      
+
         .toolItem li {
           width: 100px;
           height: 200px;
@@ -144,7 +204,7 @@ const Screen = () => {
           cursor: pointer;
           transition: transform 0.3s, width 0.3s, height 0.3s;
         }
-      
+
         .toolItem li:hover {
           transform: translateY(-50px);
           width: 150px;
@@ -156,67 +216,68 @@ const Screen = () => {
           width: 150px;
           height: 250px;
         }
-      
+
         .toolItem li img {
           width: 90%;
           object-fit: auto;
         }
 
         .ColorContainer {
-          display : flex;
-          flex-direction : column;
-          justify-content : center;
-          align-items : center;
-          padding : 0 100px 0 0;
-          margin : 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 0 100px 0 0;
+          margin: 0;
         }
 
         .colorRow {
           display: flex;
           justify-content: flex-start;
-          margin-bottom : 5px;
+          margin-bottom: 5px;
         }
 
         .colorCell {
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          margin-left : 5px;
-          cursor : pointer;
+          margin-left: 5px;
+          cursor: pointer;
         }
 
         #cblack {
-          background-color: black;
-          box-shadow : 0 1.5px 4px #ccc;
+          background-color: #000;
+          box-shadow: 0 1.5px 4px #ccc;
         }
 
         #cred {
-          background-color: red;
-          box-shadow : 0 1.5px 4px #ccc;
+          background-color: #ff0000;
+          box-shadow: 0 1.5px 4px #ccc;
         }
 
         #cgreen {
-          background-color: green;
-          box-shadow : 0 1.5px 4px #ccc;
+          background-color: #00ff00;
+          box-shadow: 0 1.5px 4px #ccc;
         }
 
         #cblue {
-          background-color: blue;
-          box-shadow : 0 1.5px 4px #ccc;
+          background-color: #0000ff;
+          box-shadow: 0 1.5px 4px #ccc;
         }
 
         #cyellow {
-          background-color: yellow;
-          box-shadow : 0 1.5px 4px #ccc;
+          background-color: #ffff00;
+          box-shadow: 0 1.5px 4px #ccc;
         }
 
         .colorSelect {
-          width: 40px;
-          height: 40px;
+          width: 45px;
+          height: 45px;
           border: none;
           border-radius: 10px;
-          background : transparent;
-          cursor : pointer;
+          background: transparent;
+          cursor: pointer;
+          margin-left: 2px;
         }
 
         .PenGuide {
@@ -229,7 +290,7 @@ const Screen = () => {
           justify-content: center;
           align-items: center;
         }
-        
+
         .PenGuide ul {
           list-style-type: none;
           display: flex;
@@ -239,7 +300,7 @@ const Screen = () => {
           padding: 0;
           width: 100%;
         }
-        
+
         .PenGuide ul li {
           flex: 1;
           margin: 0;
@@ -250,15 +311,25 @@ const Screen = () => {
           cursor: pointer;
           transition: transform 0.3s, width 0.3s, height 0.3s;
         }
-        
+
         .PenGuide ul li:hover {
           transform: scale(1.3);
         }
-        
+
         .PenGuide ul li img {
           max-width: 100%;
           max-height: 100%;
-          cursor : pointer;
+          cursor: pointer;
+        }
+
+        .colorGuide {
+          position: absolute;
+          top: -7px;
+          right: -7px;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: red;
         }
       `}</style>
     </div>
