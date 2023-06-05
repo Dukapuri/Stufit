@@ -1,20 +1,68 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "../components/header2";
 
 const Screen = () => {
+  const [penGuideVisible, setPenGuideVisible] = useState(false);
+  const [penGuidePosition, setPenGuidePosition] = useState({ x: 0, y: 0 });
+
+  const handleBack = () => {
+    
+  };
+
+  const handleGo = () => {
+
+  };
+
+  const handleRefresh = () => {
+
+  };
+
+  const handlePenOption = (event) => {
+    const penSvgRect = event.target.getBoundingClientRect();
+    if (penGuideVisible) {
+      setPenGuideVisible(false);
+    } else {
+      setPenGuideVisible(true);
+      setPenGuidePosition({
+        x: penSvgRect.x + penSvgRect.width / 2,
+        y: penSvgRect.y - penSvgRect.height,
+      });
+    }
+  };
+
+  const handlePenSelected = () => {
+    setPenGuideVisible(false);
+  };
+
+  const handleHPenOption = () => {
+
+  };
+
   return (
     <div className="Screen">
       <Header />
-
+      {penGuideVisible && (
+        <div
+          className="PenGuide"
+          style={{ position: "absolute", left: "37%", bottom: "25%" }}
+        >
+          <ul>
+            <li onClick={handlePenSelected}><img src="/img/penwidth1.png" /></li>
+            <li onClick={handlePenSelected}><img src="/img/penwidth2.png" /></li>
+            <li onClick={handlePenSelected}><img src="/img/penwidth3.png" /></li>
+          </ul>
+        </div>
+      )}
       <div className="ScreenWrapper">
         <div className="toolBox">
           <ul className="workLevel">
-            <li><img src="/img/back.png" /></li>
-            <li><img src="/img/go.png" /></li>
+            <li><img src="/img/back.png" onClick={handleBack}/></li>
+            <li><img src="/img/go.png" onClick={handleGo}/></li>
+            <li className="refresh"><img src="/img/cycle.png" onClick={handleRefresh}/></li>
           </ul>
           <ul className="toolItem">
-            <li><img src="/img/pen.svg"/></li>
-            <li><img src="/img/highpen.svg"/></li>
+            <li><img src="/img/pen.svg" onClick={handlePenOption}/></li>
+            <li><img src="/img/highpen.svg" onClick={handleHPenOption}/></li>
             <li><img src="/img/eraser.svg"/></li>
           </ul>
           <div className="ColorContainer">
@@ -46,7 +94,7 @@ const Screen = () => {
           justify-content: space-between;
           align-items: center;
           background: #fff;
-          border: 1px solid #d3d3d3;
+          border: none;
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
           border-radius: 80px;
         }
@@ -70,13 +118,13 @@ const Screen = () => {
           margin-left: 10px;
         }
 
-        .workLevel li:hover {
-          filter: blur(1px);
-        }
-
         .workLevel li img {
           width: 80%;
           object-fit: auto;
+        }
+
+        .refresh {
+          margin-left : 40px;
         }
 
         .toolItem {
@@ -84,7 +132,7 @@ const Screen = () => {
           display: flex;
           justify-content: space-evenly;
         }
-
+      
         .toolItem li {
           width: 100px;
           height: 200px;
@@ -94,8 +142,21 @@ const Screen = () => {
           justify-content: center;
           align-items: center;
           cursor: pointer;
+          transition: transform 0.3s, width 0.3s, height 0.3s;
+        }
+      
+        .toolItem li:hover {
+          transform: translateY(-50px);
+          width: 150px;
+          height: 250px;
         }
 
+        .toolItem li:focus {
+          transform: translateY(-50px);
+          width: 150px;
+          height: 250px;
+        }
+      
         .toolItem li img {
           width: 90%;
           object-fit: auto;
@@ -154,6 +215,50 @@ const Screen = () => {
           height: 40px;
           border: none;
           border-radius: 10px;
+          background : transparent;
+          cursor : pointer;
+        }
+
+        .PenGuide {
+          width: 200px;
+          height: 100px;
+          margin: 0;
+          padding: 10px;
+          background: beige;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        
+        .PenGuide ul {
+          list-style-type: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0;
+          padding: 0;
+          width: 100%;
+        }
+        
+        .PenGuide ul li {
+          flex: 1;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: transform 0.3s, width 0.3s, height 0.3s;
+        }
+        
+        .PenGuide ul li:hover {
+          transform: scale(1.3);
+        }
+        
+        .PenGuide ul li img {
+          max-width: 100%;
+          max-height: 100%;
+          cursor : pointer;
         }
       `}</style>
     </div>
