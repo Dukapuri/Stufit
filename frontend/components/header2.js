@@ -22,7 +22,7 @@ function Header(params) {
                  width : 20%;
                  height : 70px;
                  margin : 0;
-                 padding : 0;
+                 padding : 0 40px 0 0;
                  display : flex;
                  justify-content : flex-start;
                  align-items : center;
