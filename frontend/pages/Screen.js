@@ -64,6 +64,7 @@ const Screen = () => {
     <div className="Screen">
       <Header />
 
+<<<<<<< HEAD
       {/* 캔버스 */}
       <div className={canvasStyle.body}>
           <canvas 
@@ -86,6 +87,8 @@ const Screen = () => {
       </div>
 
 
+=======
+>>>>>>> newj2an
       <div className="ScreenWrapper">
         <div className="toolBox">
           <ul className="workLevel">
@@ -106,14 +109,15 @@ const Screen = () => {
             <div className="colorRow">
               <div className="colorCell" id="cyellow" value="#00ffff"></div>
               <div className="colorCell" id="cblue" value="#0000ff"></div>
-              <input type="color"/>
+              <input type="color" className="colorSelect"/>
             </div>
           </div>
         </div>
       </div>
       <style jsx>{`
         .toolBox {
-          position: absolute;
+          position: fixed;
+          z-index : 999;
           bottom: 5%;
           left: 50%;
           transform: translateX(-50%);
@@ -181,16 +185,18 @@ const Screen = () => {
         }
 
         .ColorContainer {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          grid-template-rows: repeat(2, 1fr);
-          grid-gap: 10px;
-          margin-top: 10px;
+          display : flex;
+          flex-direction : column;
+          justify-content : center;
+          align-items : center;
+          padding : 0 100px 0 0;
+          margin : 0;
         }
 
         .colorRow {
           display: flex;
           justify-content: flex-start;
+          margin-bottom : 5px;
         }
 
         .colorCell {
@@ -203,22 +209,34 @@ const Screen = () => {
 
         #cblack {
           background-color: black;
+          box-shadow : 0 1.5px 4px #ccc;
         }
 
         #cred {
           background-color: red;
+          box-shadow : 0 1.5px 4px #ccc;
         }
 
         #cgreen {
           background-color: green;
+          box-shadow : 0 1.5px 4px #ccc;
         }
 
         #cblue {
           background-color: blue;
+          box-shadow : 0 1.5px 4px #ccc;
         }
 
         #cyellow {
           background-color: yellow;
+          box-shadow : 0 1.5px 4px #ccc;
+        }
+
+        .colorSelect {
+          width: 40px;
+          height: 40px;
+          border: none;
+          border-radius: 10px;
         }
       `}</style>
     </div>
