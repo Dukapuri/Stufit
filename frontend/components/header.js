@@ -1,4 +1,3 @@
-
 function Header(params) {
 
   return (
@@ -21,14 +20,14 @@ function Header(params) {
                width: 100%;
                padding: 20px 0 0 40px;
                display: flex;
+               align-items : center;
+               margin : 0;
                justify-content: space-evenly;
                overflow-x : hidden;
              }
-               position: fixed;
-              }
              
              .header-img {
-               width: 50px;
+               width: 30px;
              }
            
              .header-h3 {
@@ -39,7 +38,7 @@ function Header(params) {
              }
            
              .logo-section * {
-                   vertical-align: middle;
+               vertical-align: middle;
              }
            
              .header-menu{
@@ -47,6 +46,7 @@ function Header(params) {
                padding: 0;
                display: flex;
                list-style-type: none;
+               cursor : pointer;
              }
            
              .header-menu li {
@@ -59,6 +59,10 @@ function Header(params) {
                font-size: 18px;
                line-height: 30px;
                font-weight: 500;
+             }
+
+             .header-menu li:hover {
+                color: black;
              }
             `}
       </style>

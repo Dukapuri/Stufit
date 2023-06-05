@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Router from "next/router";
 
 const moveRoute = () => {
-    Router.push("/Nextpage")
+    Router.push("/Screen")
 }
 
 const MainOneWrapper = styled.div`
@@ -55,6 +55,7 @@ const NextButton = styled.div`
         cursor : pointer;
         font-weight : 600;
         font-size : 15px;
+        box-shadow : 1px 3px 5px #d3d3d3;
     }
 `;
 

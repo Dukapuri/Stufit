@@ -50,6 +50,7 @@ function Scroll3(params) {
 
               .content img {
                 max-width: 100%;
+                box-shadow : 2px 2px 6px #d7d7d7;
               }
                 `}</style>
         </>
