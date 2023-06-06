@@ -14,7 +14,9 @@ function Scroll3(params) {
                     음성과 그림판 서비스로<br/>
                     실시간 Interaction하게 제공<br/>
                 </p>
-                <img className="ex-img" src={`/img/ex.png`} alt="ex-image" />
+                <div className='exBox'>
+                  <img className="ex-img" src={`/img/ex.png`} alt="ex-image" />
+                </div>
             </div>
         </div>
             <style jsx>{`
@@ -48,9 +50,20 @@ function Scroll3(params) {
                 font-weight:550;
               }
 
-              .content img {
-                max-width: 100%;
+              .exBox {
+                width : 400px;
+                height : 400px;
+                margin : 0;
+                padding :0;
                 box-shadow : 2px 2px 6px #d7d7d7;
+                display : flex;
+                justify-content : center;
+                align-items:center;
+              }
+
+              .content img {
+                width: 100%;
+                object-fit : contain;
               }
                 `}</style>
         </>
