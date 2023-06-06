@@ -1,4 +1,4 @@
-import Header from "./header";
+import React from 'react';
 
 function Scroll3(params) {
     return (

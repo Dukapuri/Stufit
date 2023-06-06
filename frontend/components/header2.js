@@ -11,7 +11,6 @@ function Header(params) {
       <header className="main-header">
         <ul className="header-menu">
           <li><p className="toHome"alt="logo-image" onClick={moveRoute}>StuFit</p></li>
-          <li><img src={`/img/item4.png`} alt="logo-image" /></li>
           <li><img src={`/img/item5.png`} alt="logo-image" /></li>
           <li><img src={`/img/item6.png`} alt="logo-image" /></li>
         </ul>
@@ -19,7 +18,7 @@ function Header(params) {
               .main-header {
                  position : fixed;
                  z-index: 999; 
-                 width : 20%;
+                 width : 15%;
                  height : 70px;
                  margin : 0;
                  padding : 0 40px 0 0;
@@ -46,13 +45,13 @@ function Header(params) {
 
                ul li p {
                 color : #00FF66;
-                font-size : 30px;
+                font-size : 35px;
                 font-weight : bold;
                 cursor : pointer;
                }
 
                ul li img {
-                width : 35px;
+                width : 30px;
                 cursor : pointer;
                }
 

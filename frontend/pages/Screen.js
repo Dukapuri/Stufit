@@ -2,28 +2,41 @@ import React, { useState } from "react";
 import Header from "../components/header2";
 
 const Screen = () => {
-  const [penGuideVisible, setPenGuideVisible] = useState(false);
-  const [selectedColor, setSelectedColor] = useState("#000000"); // Initial value is black
+  const [penGuideVisible, setPenGuideVisible] = useState(false); // 펜 굵기 선택창 visible 유무
+  const [selectedColor, setSelectedColor] = useState("#000000"); // 초기 선택된 색깔 : 검정
+  const [userListVisible, setUserListVisible] = useState(false); // userList 영역 visible 유무
+  const [isSpeaking, setIsSpeaking] = useState(false); // speak 기능 유무
 
-  const handleBack = () => {};
+  const handleSpeakClick = () => {    // speak 클릭시 함수 호출
+    setIsSpeaking((prevState) => !prevState);
+  };
 
-  const handleGo = () => {};
+  const handleBack = () => {}; // 작업 뒤로가기 함수(적용 필요)
 
-  const handleRefresh = () => {};
+  const handleGo = () => {}; // 작업 앞으로가기 함수(적용 필요)
+
+  const handleRefresh = () => {}; // 새 도화지 함수 (적용 필요)
 
   const handlePenOption = () => {
-    if (penGuideVisible) {
-      setPenGuideVisible(false);
-    } else {
-      setPenGuideVisible(true);
-    }
+    // 펜 굵기 선택창 나타나고, 닫히는 함수
+    setPenGuideVisible((prevState) => !prevState);
   };
 
   const handlePWidthSelected = () => {
+    // 펜 굵기 선택 (적용 필요, 선택과 동시에 펜으로 써지게 적용해야될 것 같아)
     setPenGuideVisible(false);
   };
 
+  const handleHighPen = () => {  // 형광펜 사용 함수(적용 필요)
+
+  };
+
+  const handleErase = () => {  // 지우개 적용 함수(적용 필요)
+
+  };
+
   const handlePColorSelected = (event) => {
+    // 펜 색 지정(적용 필요, setSelectedColor구문 밑에다가 추가하면됨)
     let selectedColor;
     if (event.target.tagName === "INPUT") {
       selectedColor = event.target.value;
@@ -33,9 +46,42 @@ const Screen = () => {
     setSelectedColor(selectedColor);
   };
 
+  const handleUserImageClick = () => {
+    // userList 보여주는 토글 이미지 함수
+    setUserListVisible((prevState) => !prevState);
+  };
+
   return (
     <div className="Screen">
       <Header />
+      <div className="userInfo" onClick={handleUserImageClick}>
+        <img src="/img/item4.png" alt="userIcon" />
+      </div>
+      {userListVisible && (
+        <div className="userList">
+          <p>UserList</p>
+          <div className="userCard">
+            <img src="/img/user.png" alt="userIcon" id="userIcon" />
+            <p>user1</p>
+            <img
+              src={isSpeaking ? "/img/speakon.png" : "/img/speakoff.png"}
+              alt="speak"
+              id="userSpeak"
+              onClick={handleSpeakClick}
+            />
+          </div>
+          <div className="userCard">
+            <img src="/img/user.png" alt="userIcon" id="userIcon" />
+            <p>user2</p>
+            <img
+              src={isSpeaking ? "/img/speakon.png" : "/img/speakoff.png"}
+              alt="speak"
+              id="userSpeak"
+              onClick={handleSpeakClick}
+            />
+          </div>
+        </div>
+      )}
       {penGuideVisible && (
         <div
           className="PenGuide"
@@ -70,15 +116,18 @@ const Screen = () => {
           <ul className="toolItem">
             <li>
               <div className="penOption" onClick={handlePenOption}>
-                <div className="currentCircle" style={{ background: selectedColor }}></div>
+                <div
+                  className="currentCircle"
+                  style={{ background: selectedColor }}
+                ></div>
                 <img src="/img/pen.svg" style={{ fill: selectedColor }} />
               </div>
             </li>
             <li>
-              <img src="/img/highpen.svg" />
+              <img src="/img/highpen.svg" onClick={handleHighPen}/>
             </li>
             <li>
-              <img src="/img/eraser.svg" />
+              <img src="/img/eraser.svg" onClick={handleErase}/>
             </li>
           </ul>
           <div className="ColorContainer">
@@ -107,19 +156,19 @@ const Screen = () => {
                 className="colorCell"
                 id="cyellow"
                 value="rgb(255,255,0)"
-                onClick={handlePColorSelected}
+                onClick={handlePColorSelected} // 노랑
               ></div>
               <div
                 className="colorCell"
                 id="cblue"
                 value="rgb(0,0,255)"
-                onClick={handlePColorSelected}
+                onClick={handlePColorSelected} // 파랑
               ></div>
               <input
                 type="color"
                 className="colorSelect"
                 onChange={(event) =>
-                  handlePColorSelected({ target: event.target })
+                  handlePColorSelected({ target: event.target }) // 컬러 선택 input
                 }
               />
             </div>
@@ -127,19 +176,88 @@ const Screen = () => {
         </div>
       </div>
       <style jsx>{`
+        .Screen {
+          position: relative;
+        }
+
+        .userInfo {
+          position: fixed;
+          z-index: 999;
+          top: 30px;
+          right: 30px;
+          width: 40px;
+          height: 40px;
+          margin: 0;
+          padding: 0;
+          cursor: pointer;
+        }
+
+        .userInfo img {
+          width: 100%;
+          object-fit: auto;
+        }
+
+        .userInfo img:hover {
+          animation: jellyAnimation 0.5s;
+        }
+
+        .userList {
+          position: fixed;
+          z-index: 998;
+          top: 20%;
+          right: 0;
+          width: 20%;
+          height: 60vh;
+          background: #00ff66;
+          opacity: 0.6;
+          transition: right 0.3s;
+          overflow: hidden;
+          border-radius : 30px 0 0 30px;
+          display : flex;
+          justify-content : center;
+          align-items : center;
+          flex-direction : column;
+          box-shadow : 0 2px 6px #d3d3d3;
+        }
+
+        .userList p {
+          opacity : 1;
+          font-size : 1.5rem;
+          color : black;
+        }
+
+        .userCard {
+          width : 80%;
+          height : 50px;
+          display : flex;
+          justify-content : space-evenly;
+          align-items : center;
+          margin : 0;
+          padding : 10px;
+        }
+
+        #userSpeak {
+          cursor : pointer;
+        }
+
+        .Screen:hover .userList {
+          right: 0;
+        }
+
         .penOption {
-          position : relative;
+          position: relative;
         }
 
         .currentCircle {
-          position : aboslute;
-          top : 0;
-          right : 0;
-          background : #000;
-          width : 15px;
-          height : 15px;
-          border-radius : 50%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          background: #000;
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
         }
+
         .toolBox {
           position: fixed;
           z-index: 999;
@@ -301,39 +419,37 @@ const Screen = () => {
           width: 100%;
         }
 
-        .PenGuide ul li {
-          flex: 1;
+        .PenGuide li {
+          width: 50px;
+          height: 50px;
           margin: 0;
           padding: 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          transition: transform 0.3s, width 0.3s, height 0.3s;
-        }
-
-        .PenGuide ul li:hover {
-          transform: scale(1.3);
-        }
-
-        .PenGuide ul li img {
-          max-width: 100%;
-          max-height: 100%;
           cursor: pointer;
         }
 
-        .colorGuide {
-          position: absolute;
-          top: -7px;
-          right: -7px;
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background-color: red;
+        .PenGuide li img {
+          width: 100%;
+          object-fit: auto;
+        }
+
+        @keyframes jellyAnimation {
+          0%,
+          100% {
+            transform: scale(1, 1);
+          }
+          25% {
+            transform: scale(0.9, 1.1);
+          }
+          50% {
+            transform: scale(1.1, 0.9);
+          }
+          75% {
+            transform: scale(0.95, 1.05);
+          }
         }
       `}</style>
     </div>
   );
-}
+};
 
 export default Screen;
