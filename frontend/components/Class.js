@@ -72,7 +72,7 @@ function Class(params) {
                 >
             </canvas>
             <input id='line-width' type='range' min="1" max="10" step="0.1" value={getWidth} onChange={handleWidthChange}/>
-            <input type="color" value={getColor}/>
+            <input type="color" value={getColor} onChange={handleColorChange}/>
                 {colorList.map((color)=>{
                     return(
                         <div className={styles.colorOption} style={{backgroundColor : color}} data-color={color} onClick={handleColorChange}></div>

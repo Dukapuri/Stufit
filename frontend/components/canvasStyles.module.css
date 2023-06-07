@@ -1,8 +1,9 @@
 
 .canvas {
-    width: 1920px;
-    height: 1080px;
-    border:5px solid black;
+    width: 800px;
+    height: 800px;
+    margin: 0;
+    padding: 0;
 }
 
 .body {
